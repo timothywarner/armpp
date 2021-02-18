@@ -46,7 +46,7 @@
 
 * [Use Azure Key vault in templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-use-key-vault)
 
-### 8. Consider nested templates
+### 8. Consider linked templates
 
 * [Link deployment templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/linked-templates)
 

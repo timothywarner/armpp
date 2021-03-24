@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "metadata": {
+        "comments": "ARM template ref: https://timw.info/armref",
+        "author": "Tim Warner (@TechTrainerTim)"
+    },
+    "parameters": {
+        "stgNamePrefix": {
+            "type": "string",
+            "defaultValue": "twaz104", // this is an inline comment
+            "metadata": {
+                "description": "Storage account name prefix (3-24 lowercase alphanumeric characters)"
+            }
+        },
+        "replicationOption": {
+            "type": "string",
+            "defaultValue": "Standard_LRS",
+            "allowedValues": ["Standard_LRS",
+                              "Standard_GRS",
+                              "Standard_RAGRS"],
+            "metadata": {
+                "description": "Degree of desired high availability for the storage account"
+            }
+        },
+        "secretValue": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Demonstration of passing a secret in a template"
+            }
+        }
+    },
+    "variables": {
+        "stgAccountName": "[concat(parameters('stgNamePrefix'))]"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('stgNamePrefix'), 'gpstg')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "tags": {
+                "displayName": "[variables('stgAccountName')]"
+            },
+            "location": "[resourceGroup().location]",
+            "kind": "StorageV2",
+            "sku": {
+                "name": "[parameters('replicationOption')]",
+                "tier": "Standard"
+            },
+            "comments": "This is a resource-level comment."
+        }
+    ],
+    "outputs": {}
+}
